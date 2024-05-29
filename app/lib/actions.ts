@@ -23,6 +23,8 @@ type Coordinates = {
 
 export type StopObject = {
   vehicleLocation: Coordinates;
+  lineRef: string;
+  vehicleRef: string;
   call: {
     vehicleAtStop: boolean;
     expectedArrivalTime: string;
@@ -30,6 +32,28 @@ export type StopObject = {
     arrivalStatus: string;
   };
 };
+
+export type StopInfo = {
+  location: string;
+  name: string;
+  shortName: string; // same as id?
+  tariffZone: string;
+};
+
+export async function fetchStopTimetable(stopId: string): Promise<any> {
+  if (!stopId) {
+    throw new Error("Stop id is required");
+  }
+  // https://wiki.itsfactory.fi/index.php/Journeys_API
+  const response = await fetch(
+    `https://data.itsfactory.fi/journeys/api/1/stop-monitoring?stops=${stopId}`
+  );
+
+  const data = await response.json();
+
+  revalidatePath("/");
+  return data;
+}
 
 export async function fetchStopTimetables(stopIds: string[]): Promise<any> {
   // https://wiki.itsfactory.fi/index.php/Journeys_API
@@ -39,7 +63,18 @@ export async function fetchStopTimetables(stopIds: string[]): Promise<any> {
 
   const data = await response.json();
 
-  console.log("fetchStopTimetables data", data);
   revalidatePath("/");
   return data;
+}
+
+export async function fetchStopInfo(stopId: string): Promise<StopInfo> {
+  // https://wiki.itsfactory.fi/index.php/Journeys_API
+  const response = await fetch(
+    `https://data.itsfactory.fi/journeys/api/1/stop-points/${stopId}`
+  );
+
+  const data = await response.json();
+
+  revalidatePath("/");
+  return data.body[0];
 }

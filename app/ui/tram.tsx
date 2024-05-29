@@ -1,10 +1,6 @@
 import { StopObject, fetchStopTimetables } from "../lib/actions";
 import { lusitana } from "./fonts";
-
-const PrettyDate = ({ date }: { date: string }) => {
-  const asDate = new Date(date);
-  return <>{asDate.toLocaleTimeString()}</>;
-};
+import { PrettyDate } from "./pretty-date";
 
 export const IncomingVehicles = async () => {
   const stopIds = ["0835", "0836"];

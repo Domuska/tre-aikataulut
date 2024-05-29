@@ -1,9 +1,11 @@
-datan hakeminen:
+Fetching the data:
 https://wiki.itsfactory.fi/index.php/Journeys_API
-stopit:
+Stops:
 https://data.itsfactory.fi/journeys/api/1/stop-points
-yhen stopin data:
+Data for one stop:
 http://data.itsfactory.fi/journeys/api/1/stop-points/0001
+
+<!-- below is the original next template's description -->
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
