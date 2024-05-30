@@ -5,6 +5,9 @@ https://data.itsfactory.fi/journeys/api/1/stop-points
 Data for one stop:
 http://data.itsfactory.fi/journeys/api/1/stop-points/0001
 
+Tailwinds components in use
+https://tailwindcomponents.com/
+
 <!-- below is the original next template's description -->
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

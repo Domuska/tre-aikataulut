@@ -57,8 +57,9 @@ export async function fetchStopTimetable(stopId: string): Promise<any> {
 
 export async function fetchStopTimetables(stopIds: string[]): Promise<any> {
   // https://wiki.itsfactory.fi/index.php/Journeys_API
+  const queryParam = stopIds.join(",");
   const response = await fetch(
-    "https://data.itsfactory.fi/journeys/api/1/stop-monitoring?stops=0835,0836"
+    `https://data.itsfactory.fi/journeys/api/1/stop-monitoring?stops=${queryParam}`
   );
 
   const data = await response.json();
