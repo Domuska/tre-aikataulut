@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { IncomingVehicles } from "./ui/initial-test/tram";
 import { StopInfo } from "./ui/initial-test/stop-info";
 import { fetchStopInfo } from "./lib/actions";
 

@@ -1,4 +1,5 @@
 import CardWrapper from "../ui/dashboard/cards/card-wrapper";
+import { AllStops } from "../ui/dashboard/stops";
 import { lusitana } from "../ui/fonts";
 
 export default async function Page() {
@@ -14,7 +15,11 @@ export default async function Page() {
       </Suspense> */}
         <CardWrapper />
       </div>
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8"></div>
+
+      <div></div>
+      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+        <AllStops />
+      </div>
     </main>
   );
 }

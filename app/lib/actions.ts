@@ -123,3 +123,13 @@ export async function fetchStopInfo(stopId: string): Promise<StopInfo> {
   revalidatePath("/");
   return data.body[0];
 }
+
+export async function fetchAllStops(): Promise<StopInfo[]> {
+  const response = await fetch(
+    `https://data.itsfactory.fi/journeys/api/1/stop-points`
+  );
+
+  const data = await response.json();
+
+  return data.body;
+}

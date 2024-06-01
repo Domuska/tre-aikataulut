@@ -15,7 +15,6 @@ export const StopInfo = async ({
   const responseBody = (await fetchStopTimetable(stopId)).body;
   const incomingVehicles = responseBody[stopId] as StopObject[];
 
-  console.log("response body", responseBody);
   return (
     <>
       <h1 className={`${lusitana.className}`}>{stopName}</h1>
