@@ -40,50 +40,12 @@ type Coordinates = {
   latitude: string;
 };
 
-type StopObject = {
-  vehicleLocation: Coordinates;
-  lineRef: string;
-  vehicleRef: string;
-  call: {
-    vehicleAtStop: boolean;
-    expectedArrivalTime: string;
-    expectedDepartureTime: string;
-    arrivalStatus: string;
-  };
-};
-
 type StopInfo = {
   location: string;
   name: string;
   shortName: string; // same as id?
   tariffZone: string;
 };
-
-type MonitoredVehicleJourney = {
-  VehicleLocation: Coordinates;
-  LineRef: { _text: string };
-  VehicleRef: { _text: string };
-  MonitoredCall: {
-    ExpectedArrivalTime: { _text: string };
-    ExpectedDepartureTime: string;
-    VehicleAtStop: boolean;
-    ArrivalStatus: string;
-  };
-  OnwardCalls: any; // todo typing?
-};
-
-type MonitoredStopVisit = {
-  MonitoringRef: { _text: string }; // id of the stop
-  MonitoredVehicleJourney: MonitoredVehicleJourney;
-  StopVisitNote: string; // name of the stop?
-};
-
-type StopMonitoringDelivery = {
-  StopMonitoringDelivery: {
-    MonitoredStopVisit: Array<MonitoredStopVisit>;
-  };
-};
-
 export type MonitoredStopVisitResponse = z.infer<
   typeof MonitoredStopVisitSchema
 >;
@@ -148,34 +110,6 @@ export async function fetchStopTimetableXML(stopIds: string[]) {
     console.log("error", error);
     throw new Error("Received invalid data");
   }
-}
-
-async function fetchStopTimetable(stopId: string): Promise<any> {
-  if (!stopId) {
-    throw new Error("Stop id is required");
-  }
-  // https://wiki.itsfactory.fi/index.php/Journeys_API
-  const response = await fetch(
-    `https://data.itsfactory.fi/journeys/api/1/stop-monitoring?stops=${stopId}`
-  );
-
-  const data = await response.json();
-
-  revalidatePath("/");
-  return data;
-}
-
-async function fetchStopTimetables(stopIds: string[]): Promise<any> {
-  // https://wiki.itsfactory.fi/index.php/Journeys_API
-  const queryParam = stopIds.join(",");
-  const response = await fetch(
-    `https://data.itsfactory.fi/journeys/api/1/stop-monitoring?stops=${queryParam}`
-  );
-
-  const data = await response.json();
-
-  revalidatePath("/");
-  return data;
 }
 
 export async function fetchStopInfo(stopId: string): Promise<StopInfo> {

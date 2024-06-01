@@ -1,6 +1,6 @@
-import { StopObject, fetchStopTimetable } from "../lib/actions";
-import { lusitana } from "./fonts";
-import { PrettyDate } from "./pretty-date";
+import { StopObject, fetchStopTimetable } from "../../lib/initial-test-actions";
+import { lusitana } from "../fonts";
+import { PrettyDate } from "../pretty-date";
 
 export const StopInfo = async ({
   stopId,
