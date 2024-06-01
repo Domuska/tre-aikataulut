@@ -1,31 +1,45 @@
-import { fetchStopInfo, fetchStopTimetables } from "@/app/lib/actions";
+import {
+  MonitoredStopVisitResponse,
+  fetchStopTimetableXML,
+} from "@/app/lib/actions";
 import { Card } from "./card";
 
 export default async function CardWrapper() {
-  const [hervanta1Stop, hervanta2Stop] = await Promise.all([
-    fetchStopInfo("0835"), // Hervanta A
-    fetchStopInfo("0836"), // Hervanta B
-  ]);
+  const stopIds = [
+    "0835", // Hervanta A
+    "0836", // Hervanta B
+  ];
 
-  const timeTablesResponse = await fetchStopTimetables([
-    hervanta1Stop.shortName,
-    hervanta2Stop.shortName,
-  ]);
+  const xmlResponse = await fetchStopTimetableXML(stopIds);
 
-  const timeTablesData = timeTablesResponse.body;
+  const stopsMap = {} as any;
+  // const stopsMap2 = new Map<string, string[]>();
+  const stopsMap2 = new Map<string, MonitoredStopVisitResponse[]>();
+
+  xmlResponse.forEach((item) => {
+    const key = item.StopVisitNote._text;
+    if (!stopsMap[key]) {
+      stopsMap[key] = [];
+    }
+
+    if (!stopsMap2.has(key)) {
+      stopsMap2.set(key, []);
+    }
+
+    // limitation of map structure, compiler doesn't understand that we set the value above
+    stopsMap2.get(key)!.push(item);
+
+    stopsMap[key].push(item);
+  });
 
   return (
     <>
-      <Card
-        title={hervanta1Stop.name}
-        stopId={hervanta1Stop.shortName}
-        stopData={timeTablesData[hervanta1Stop.shortName]}
-      />
-      <Card
-        title={hervanta2Stop.name}
-        stopId={hervanta2Stop.shortName}
-        stopData={timeTablesData[hervanta2Stop.shortName]}
-      />
+      {Array.from(stopsMap2).map((entry) => {
+        const [key, value] = entry;
+        return (
+          <Card key={key} title={key} stopId="seppo" incomingVisits={value} />
+        );
+      })}
     </>
   );
 }

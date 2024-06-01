@@ -8,6 +8,11 @@ http://data.itsfactory.fi/journeys/api/1/stop-points/0001
 Tailwinds components in use
 https://tailwindcomponents.com/
 
+notes on transforming xml to json
+https://goessner.net/download/prj/jsonxml/
+
+Zod used for data validation & typing
+
 <!-- below is the original next template's description -->
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
