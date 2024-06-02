@@ -13,6 +13,9 @@ https://goessner.net/download/prj/jsonxml/
 
 Zod used for data validation & typing
 
+check if this is good for components
+https://tailwindcss.com/blog/introducing-catalyst
+
 <!-- below is the original next template's description -->
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

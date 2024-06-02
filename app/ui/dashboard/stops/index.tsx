@@ -1,29 +1,42 @@
-import { fetchAllStops } from "@/app/lib/actions";
-import { SearchDropDown } from "./search-drop-down";
+"use client";
 
-export const AllStops = async () => {
-  console.log("all stops off");
-  const data = await fetchAllStops();
+import { Search } from "./search";
+import { SearchResult } from "./searchResult";
+import { useState } from "react";
 
-  const updatedData = data.map(({ shortName, ...rest }) => ({
-    id: shortName,
-    ...rest,
-  }));
+type Stop = {
+  location: string;
+  name: string;
+  tariffZone: string;
+  id: string;
+};
 
-  console.log(updatedData);
+type Props = {
+  stopsData: Stop[];
+};
+
+export const AllStops = ({ stopsData }: Props) => {
+  const [filteredData, setFilteredData] = useState<Stop[]>(stopsData);
+
+  const onSearch = (searchTerm: string) => {
+    setFilteredData(
+      stopsData.filter((stop) =>
+        stop.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  };
+
+  const onTagClick = (stopId: string) => {
+    console.log("ontag", stopId);
+    // todo use local storage
+  };
 
   return (
-    <div style={{ width: 400 }}>
-      {/* <ReactSearchAutocomplete
-        items={items}
-        onSearch={handleOnSearch}
-        onHover={handleOnHover}
-        onSelect={handleOnSelect}
-        onFocus={handleOnFocus}
-        autoFocus
-        formatResult={formatResult}
-      /> */}
-      <SearchDropDown stopsData={updatedData} />
-    </div>
+    <>
+      <div className="m-5">
+        <Search onSearch={onSearch} />
+      </div>
+      <SearchResult stopsData={filteredData} onTagClick={onTagClick} />
+    </>
   );
 };
