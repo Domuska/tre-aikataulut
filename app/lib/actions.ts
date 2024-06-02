@@ -81,7 +81,6 @@ const ServiceDeliverySchema = z.object({
 export async function fetchStopTimetableXML(stopIds: string[]) {
   const url = "https://data.waltti.fi/tampere/api/sirirealtime/v1.3/ws";
   const body = createStopsRequestBody(stopIds);
-  console.log("body", body);
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -105,6 +104,7 @@ export async function fetchStopTimetableXML(stopIds: string[]) {
     const validatedData = ServiceDeliverySchema.parse(
       json.Siri.ServiceDelivery
     );
+    revalidatePath("/dashboard");
     return validatedData.StopMonitoringDelivery.MonitoredStopVisit;
   } catch (error) {
     console.log("error", error);

@@ -1,5 +1,7 @@
-import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import DepartureBoardIcon from "@mui/icons-material/DepartureBoard";
 
 type Stop = {
   location: string;
@@ -20,13 +22,19 @@ export const Search = ({
   }, 150);
 
   return (
-    <div className="flex flex-col rounded-lg w-100 content-center">
-      <input
+    <div className="">
+      <TextField
         id="search"
-        name="search"
-        placeholder="Enter stop name"
-        className="p-3"
+        variant="outlined"
+        label="Search for a stop"
         onChange={(e) => handleSearch(e.target.value)}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="start">
+              <DepartureBoardIcon />
+            </InputAdornment>
+          ),
+        }}
       />
     </div>
   );

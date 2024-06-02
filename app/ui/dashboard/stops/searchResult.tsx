@@ -1,4 +1,6 @@
-import { TagIcon } from "@heroicons/react/24/outline";
+import { PushPin } from "@mui/icons-material";
+import { IconButton, ListItem, ListItemText, styled } from "@mui/material";
+import { FixedSizeList, ListChildComponentProps } from "react-window";
 
 type Stop = {
   location: string;
@@ -12,26 +14,53 @@ type Props = {
   onTagClick: (stopId: string) => void;
 };
 
-export const SearchResult = ({ stopsData, onTagClick }: Props) => {
+function renderRow(props: ListChildComponentProps) {
+  const { index, style, data } = props;
+  const { stopsData, onTagClick } = data;
   return (
-    <div className="flex flex-col rounded-lg gap-y-5 min-w-80">
-      {stopsData.map((stop) => {
-        return (
-          <div
-            key={stop.id}
-            className="p-3 pl-5 rounded-xl shadow-sm bg-teal-100 flex justify-between items-center"
-          >
-            <span>{stop.name}</span>
-            <button
-              onClick={() => {
-                onTagClick(stop.id);
-              }}
-            >
-              <TagIcon className="h-4 w-4 text-gray-700 inline" />
-            </button>
-          </div>
-        );
-      })}
-    </div>
+    <ListItem
+      key={index}
+      style={style}
+      component="div"
+      secondaryAction={
+        <IconButton
+          edge="end"
+          aria-label="tag stop"
+          onClick={() => onTagClick(stopsData[index].id)}
+        >
+          <PushPin />
+        </IconButton>
+      }
+    >
+      <ListItemText primary={stopsData[index].name}></ListItemText>
+    </ListItem>
+  );
+}
+
+const Styling = styled("div")(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+}));
+
+export const SearchResult = ({ stopsData, onTagClick }: Props) => {
+  // wrap the onclick function too to pas inside the rendered row
+  const rowProps = {
+    stopsData,
+    onTagClick,
+  };
+
+  return (
+    <Styling>
+      {/* the list can have over 3000 elements */}
+      <FixedSizeList
+        height={400}
+        width={600}
+        itemSize={46}
+        itemCount={stopsData.length}
+        overscanCount={5}
+        itemData={rowProps}
+      >
+        {renderRow}
+      </FixedSizeList>
+    </Styling>
   );
 };

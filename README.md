@@ -13,8 +13,8 @@ https://goessner.net/download/prj/jsonxml/
 
 Zod used for data validation & typing
 
-check if this is good for components
-https://tailwindcss.com/blog/introducing-catalyst
+Material components used
+https://mui.com/material-ui/getting-started/usage/
 
 <!-- below is the original next template's description -->
 

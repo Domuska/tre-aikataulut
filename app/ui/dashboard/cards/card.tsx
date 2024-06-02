@@ -1,7 +1,7 @@
 "use client";
 import { MonitoredStopVisitResponse } from "@/app/lib/actions";
 import { PrettyDate } from "../../pretty-date";
-import { TagIcon } from "@heroicons/react/24/outline";
+import { PushPin } from "@mui/icons-material";
 
 export function Card({
   title,
@@ -17,7 +17,8 @@ export function Card({
       <div className="flex justify-between p-4">
         <h3 className="ml-2 text-sm font-medium">{title}</h3>
         {/* todo add some coloring to this tag */}
-        <TagIcon className="h-4 w-4 text-gray-700" />
+        {/* <TagIcon className="h-4 w-4 text-gray-700" /> */}
+        <PushPin />
       </div>
 
       {/* some times randomly the endpoint either returns 0 entries or undefined */}
