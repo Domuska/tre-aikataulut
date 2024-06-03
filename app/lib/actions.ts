@@ -104,7 +104,6 @@ export async function fetchStopTimetableXML(stopIds: string[]) {
     const validatedData = ServiceDeliverySchema.parse(
       json.Siri.ServiceDelivery
     );
-    revalidatePath("/dashboard");
     return validatedData.StopMonitoringDelivery.MonitoredStopVisit;
   } catch (error) {
     console.log("error", error);
